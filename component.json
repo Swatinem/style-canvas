@@ -1,0 +1,15 @@
+{
+  "name": "style-canvas",
+  "repo": "Swatinem/style-canvas",
+  "description": "Use CSS to style canvas paths",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "Swatinem/style": "*"
+  },
+  "development": {},
+  "license": "GPLv3",
+  "scripts": [
+    "index.js"
+  ]
+}

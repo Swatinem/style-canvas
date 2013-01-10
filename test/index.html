@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Mocha</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <style>
+      .stroke {
+        stroke: #ccc;
+        stroke-width: 5;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+      }
+      .stroke .dash {
+        stroke-dasharray: 5,3,2;
+      }
+      .fill {
+        fill: rgba(0, 128, 255, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script src="../build/build.js"></script>
+    <script src="unit.js"></script>
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>

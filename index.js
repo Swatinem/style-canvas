@@ -10,11 +10,16 @@ var mapping = {
 	'stroke-width': 'lineWidth',
 	'stroke-linecap': 'lineCap',
 	'stroke-linejoin': 'lineJoin',
-	'fill': 'fillStyle'
+	'stroke-miterlimit': 'miterLimit',
+	'fill': 'fillStyle',
+	'font': 'font',
+	'text-align': 'textAlign',
+	'vertical-align': 'textBaseline', // there is no equivalent in css for this one :(
+	/*'stroke-dasharray': function (ctx, val) {
+	},*/
 };
 
 // TODO: support setter style, such as ctx.setLineDash()
-// TODO: support text properties
 // TODO: somehow support gradients and the likes?
 // TODO: somehow support shadows?
 
@@ -22,6 +27,9 @@ function styleCanvas(ctx, selector) {
 	for (var prop in mapping) {
 		var fn = mapping[prop];
 		var s = style(selector, prop);
-		ctx[fn] = s;
+		if (typeof fn == 'function')
+			fn(ctx, s);
+		else
+			ctx[fn] = s;
 	}
 }

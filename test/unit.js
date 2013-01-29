@@ -53,8 +53,27 @@ describe('styleCanvas(ctx, selector)', function () {
 		});
 	});
 
-	it.skip('should support styling text', function () {
-		//compare('.text');
+	it('should support styling text', function () {
+		compare('.text', function (ctx) {
+			ctx.fillStyle = 'blue';
+			ctx.fontStyle ='40px 300 monospace';
+			ctx.textAlign = 'center';
+		}, function (ctx, style) {
+			style(ctx);
+			ctx.fillText('test', 50, 50);
+		});
+	});
+
+	it('should support styling text with baseline', function () {
+		compare('.text .baseline', function (ctx) {
+			ctx.fillStyle = 'blue';
+			ctx.fontStyle ='20px 300 monospace';
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'bottom';
+		}, function (ctx, style) {
+			style(ctx);
+			ctx.fillText('test', 50, 50);
+		});
 	});
 });
 
@@ -63,7 +82,13 @@ function compare(selector, style, draw) {
 		sc(ctx, selector);
 	});
 	var i2 = drawWith(draw, style);
-	if (i1 !== i2) throw new Error('Drawing does not match');
+	if (i1 === i2)
+		return;
+	var err = new Error('Drawing does not match');
+	err.actual = i1;
+	err.expected = i2;
+	console.log(err.expected, err.actual);
+	throw err;
 }
 
 function drawWith(draw, style) {

@@ -56,7 +56,7 @@ describe('styleCanvas(ctx, selector)', function () {
 	it('should support styling text', function () {
 		compare('.text', function (ctx) {
 			ctx.fillStyle = 'blue';
-			ctx.fontStyle ='40px 300 monospace';
+			ctx.font = '300 40px monospace';
 			ctx.textAlign = 'center';
 		}, function (ctx, style) {
 			style(ctx);
@@ -67,7 +67,7 @@ describe('styleCanvas(ctx, selector)', function () {
 	it('should support styling text with baseline', function () {
 		compare('.text .baseline', function (ctx) {
 			ctx.fillStyle = 'blue';
-			ctx.fontStyle ='20px 300 monospace';
+			ctx.font ='300 20px monospace';
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'bottom';
 		}, function (ctx, style) {

@@ -7,7 +7,7 @@ module.exports = styleCanvas;
  */
 var mapping = {
 	'stroke': 'strokeStyle',
-	'stroke-width': 'lineWidth',
+	'stroke-width': pi('lineWidth'),
 	'stroke-linecap': 'lineCap',
 	'stroke-linejoin': 'lineJoin',
 	'stroke-miterlimit': 'miterLimit',
@@ -31,5 +31,11 @@ function styleCanvas(ctx, selector) {
 			fn(ctx, s);
 		else
 			ctx[fn] = s;
+	}
+}
+
+function pi(prop) {
+	return function (ctx, value) {
+		ctx[prop] = parseInt(value, 10);
 	}
 }

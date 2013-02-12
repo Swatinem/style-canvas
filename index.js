@@ -12,7 +12,6 @@ var mapping = {
 	'stroke-linejoin': 'lineJoin',
 	'stroke-miterlimit': 'miterLimit',
 	'fill': 'fillStyle',
-	'font': 'font',
 	'text-align': 'textAlign',
 	'vertical-align': 'textBaseline', // there is no equivalent in css for this one :(
 	/*'stroke-dasharray': function (ctx, val) {
@@ -24,14 +23,28 @@ var mapping = {
 // TODO: somehow support shadows?
 
 function styleCanvas(ctx, selector) {
+	// apply simple values
+	var styles = style(selector, Object.keys(mapping));
 	for (var prop in mapping) {
 		var fn = mapping[prop];
-		var s = style(selector, prop);
+		var s = styles[prop];
 		if (typeof fn == 'function')
 			fn(ctx, s);
 		else
 			ctx[fn] = s;
 	}
+	// thank you firefox for not supporting shorthand properties
+	var fontprops = style(selector, [
+		'font-style', 'font-variant',
+		'font-weight', 'font-size',
+		'line-height', 'font-family']);
+	ctx.font = [
+		fontprops['font-style'],
+		fontprops['font-variant'],
+		fontprops['font-weight'],
+		fontprops['font-size'] + '/' + fontprops['line-height'],
+		fontprops['font-family']
+	].join(' ');
 }
 
 function pi(prop) {
